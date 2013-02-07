@@ -10,6 +10,7 @@ $template_dir = 'templates';
 require_once $moondragon;
 require_once 'moondragon.render.php';
 require_once 'moondragon.manager.php';
+require_once 'moondragon.caller.php';
 
 Template::addDir($template_dir);
 
@@ -21,11 +22,20 @@ class Templater extends Manager
 	
 	public function __call($template, $params) {
 		try {
-			return Template::load($template);
+			$vars = Json::decode(file_get_contents('php://input'), true);
+		}
+		catch(JsonException $e) {
+			$vars = array();
+		}
+		
+		try{
+			$return = Template::load($template, $vars);
 		}
 		catch(TemplateNotFoundException $e) {
-			return 'Unexistent';
+			$return = 'Unexistent';
 		}
+		
+		return $return;
 	}
 }
 
