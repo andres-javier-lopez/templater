@@ -1,0 +1,7 @@
+h1. Templater
+
+Sistema basado en MoonDragon para procesar y devolver asíncronamente una plantilla.
+
+Para configurarlo, es necesario agregar las rutas de MoonDragon y el directorio principal de plantillas. Se puede acceder a una plantilla haciendo un request a templater.php/plantilla.
+
+Para enviar variables a las plantillas, mandar un objeto json dentro del cuerpo de la petición HTTP.
